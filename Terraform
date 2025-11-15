@@ -198,3 +198,143 @@ Setting up backend
 Installing required modules
 Validating the configuration
 It must be run before plan and apply.
+
+---
+
+1️⃣ What is Terraform state?
+
+Terraform state is a file (terraform.tfstate) that stores the current real-world infrastructure and maps it to your Terraform configuration.
+It helps Terraform understand what resources exist, track metadata, detect drift, and plan updates.
+
+In interview terms:
+“State is the single source of truth for Terraform.”
+
+2️⃣ What is a backend?
+
+A backend tells Terraform where and how to store state.
+
+Examples:
+local (default) → state stored locally
+s3 + dynamodb → remote storage + locking
+azurerm, gcs, consul → cloud backends
+
+Why important:
+Backends enable collaboration, remote locking, and secure storage.
+
+3️⃣ What are providers?
+
+Providers are plugins used by Terraform to interact with cloud platforms or services.
+
+Examples:
+AWS, Azure, GCP
+Kubernetes provider
+Helm provider
+Datadog/Splunk provider
+Providers expose resources and data sources.
+
+4️⃣ What are Terraform modules?
+
+Modules are reusable Terraform configuration groups.
+
+A module can:
+standardize resource creation
+enforce best practices
+reduce duplicated code
+
+You can use:
+public modules (Terraform Registry)
+local modules
+
+private module registries
+
+5️⃣ terraform plan vs terraform apply
+Command	Purpose
+terraform plan	Shows changes Terraform will make (preview).
+terraform apply	Executes the changes and updates the infrastructure.
+
+Important:
+apply always updates the state file afterward.
+
+6️⃣ What are lifecycle rules?
+
+Lifecycle rules allow you to control how Terraform manages resources.
+
+Common rules:
+create_before_destroy
+prevent_destroy
+ignore_changes
+
+Example:
+
+lifecycle {
+  prevent_destroy = true
+}
+
+Used to avoid accidental deletion.
+
+7️⃣ What are workspaces?
+
+Workspaces allow you to maintain multiple state files for the same configuration.
+
+Example use cases:
+dev / stage / prod
+blue / green deployments
+
+Important:
+Workspaces ≠ good replacement for modules.
+Workspaces help when environments are similar.
+
+8️⃣ What is remote state locking?
+
+Remote locking prevents multiple people or jobs (CI/CD) from modifying state at the same time.
+
+Example:
+AWS S3 + DynamoDB for locking
+Azure Blob + leases
+GCS + locking mechanisms
+If locking is not used → state corruption may occur.
+
+9️⃣ What is tfvars used for?
+
+*.tfvars files store variable values separately from the main configuration.
+
+Example:
+dev.tfvars
+prod.tfvars
+Loaded with:
+terraform apply -var-file="dev.tfvars"
+Helps maintain clean and environment-specific configs.
+
+🔟 How to handle sensitive data in Terraform?
+
+Best practices:
+Use sensitive = true for outputs
+Use secret stores (Vault, AWS Secrets Manager, Azure Key Vault)
+Never hard-code credentials
+Use environment variables
+Store state in encrypted backend (S3, Azure Blob, GCS)
+
+
+🔥 MUST KNOW QUESTIONS (Interview Favorites) 🔥
+
+✔ What happens if Terraform state is deleted?
+If the state file is deleted, Terraform loses track of existing resources.
+
+Effects:
+Terraform will treat all resources as new → may try to recreate them
+You cannot import or manage previously created infrastructure
+Causes drift and duplicate resources
+
+Fix:
+Use terraform import to recreate the state or restore from backup.
+
+✔ How do you avoid configuration drift?
+Drift = when real infrastructure differs from Terraform state.
+
+Ways to avoid:
+Always use Terraform, never modify cloud resources manually.
+Use CI/CD pipelines for automated terraform apply.
+Use drift detection (Terraform Cloud, Atlantis, Spacelift).
+Enable remote state + state locking.
+Regularly run:   terraform plan
+to identify drift.
