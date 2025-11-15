@@ -14,6 +14,7 @@ Difference between Docker Compose & Dockerfile
 
 
 💡 MUST KNOW:
+
 ✔ How to reduce image size
 
 ✔ How to debug failing containers
@@ -43,6 +44,7 @@ Taints & Tolerations
 Node Affinity
 
 💡 PRIORITY:
+
 Explain the workflow of:
 
 “When you run kubectl apply -f deployment.yaml, what actually happens?”
@@ -72,6 +74,7 @@ tfvars usage
 Handling sensitive data
 
 💡 MUST KNOW:
+
 ✔ “What happens if terraform state is deleted?”
 
 ✔ “How do you avoid configuration drift?”
@@ -143,6 +146,7 @@ Networking (ping, traceroute, curl)
 Disk mgmt (df, du, mount)
 
 **🔥 Interview Questions (Very Common)**
+
 Docker
 
 How do you troubleshoot a container stuck in restart loop?
