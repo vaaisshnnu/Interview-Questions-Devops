@@ -1,0 +1,171 @@
+🔵 DOCKER — Interview Questions + Perfect Answers
+1. What is the difference between an Image and a Container?
+
+Answer:
+
+Image → A read-only blueprint that contains the application code + dependencies.
+
+Container → A running instance of an image with its own process, filesystem, and configuration.
+
+Simple analogy:
+Image = class
+Container = object
+
+2. Difference between CMD and ENTRYPOINT in Dockerfile?
+
+Answer:
+
+CMD provides default arguments that can be overridden at runtime.
+
+ENTRYPOINT defines the main command that always executes.
+
+Best practice:
+Use ENTRYPOINT for the main executable.
+Use CMD for parameters.
+
+3. What are Docker Volumes? Why are they used?
+
+Answer:
+Volumes are external storage mechanisms managed by Docker.
+They are used for:
+
+Persisting data even when containers are removed
+
+Sharing data between multiple containers
+
+Improving I/O performance
+
+Examples: databases, logs, configs.
+
+4. How do you reduce Docker image size?
+
+Answer:
+
+Use Alpine images
+
+Combine RUN commands
+
+Use multi-stage builds
+
+Avoid installing unnecessary packages
+
+Clean cache in RUN (e.g., yum clean all, rm -rf /var/cache/...)
+
+Use .dockerignore
+
+5. What is a Multi-Stage Build?
+
+Answer:
+It allows you to use multiple FROM instructions within a Dockerfile to:
+
+✔ Build the application in one stage
+✔ Copy only final artifacts to a lightweight image
+
+Reduces image size drastically.
+
+6. How do you check logs of a Docker container?
+docker logs <container_name>
+
+
+For real-time streaming:
+
+docker logs -f <container_name>
+
+7. A container is stuck in CrashLoopBackOff. What do you do?
+
+Answer:
+
+Check logs
+
+docker logs <container>
+
+
+Check exit code
+
+docker inspect <container> --format='{{.State.ExitCode}}'
+
+
+Run container in interactive mode
+
+docker run -it <image> /bin/bash
+
+
+Check health checks / environment vars
+
+Validate application startup script
+
+8. How do you pass environment variables into a container?
+
+Using -e flag:
+
+docker run -e ENV=prod imagename
+
+
+Using env file:
+
+docker run --env-file=config.env imagename
+
+9. Difference between Dockerfile COPY vs ADD?
+
+COPY
+
+Copies files/folders from local filesystem
+
+Safer & more predictable
+
+ADD
+
+Can extract TAR files
+
+Can copy from URLs
+→ Not recommended unless needed
+
+10. Explain Docker Networking Types.
+
+Bridge (default)
+
+Containers on the same host communicate
+
+Host
+
+Container shares host network namespace
+
+None
+
+No networking
+
+Overlay
+
+Multi-host networking (Swarm/Kubernetes)
+
+11. What is Docker Compose?
+
+Answer:
+A YAML-based tool to run multi-container applications.
+
+Benefits:
+
+Define services, networks, volumes
+
+Bring up the entire stack using:
+
+docker-compose up -d
+
+
+12. How do you troubleshoot a container that won’t start?
+
+Steps:
+
+Check logs
+
+Inspect container
+
+Run container interactively
+
+Check Dockerfile ENTRYPOINT/CMD
+
+Check port availability
+
+Check image builds without errors
+
+Check mounted volume paths
