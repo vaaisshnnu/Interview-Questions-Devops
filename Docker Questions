@@ -4,7 +4,6 @@
 Answer:
 
 Image → A read-only blueprint that contains the application code + dependencies.
-
 Container → A running instance of an image with its own process, filesystem, and configuration.
 
 Simple analogy:
