@@ -1,0 +1,176 @@
+🔵 KUBERNETES — Must-Prepare Interview Questions + Perfect Answers 🔵
+
+1. What happens when you run "kubectl apply -f deployment.yaml" ? { This is one of the MOST asked questions } 
+
+Answer:
+Client validates the YAML.
+Request goes to API Server.
+API server stores the object in etcd (cluster database).
+Controller Manager detects desired state ≠ actual state.
+Deployment Controller creates a ReplicaSet.
+ReplicaSet creates Pods.
+Scheduler picks nodes.
+Kubelet pulls image → creates container.
+kube-proxy updates networking rules.
+Application becomes available.
+
+2. What is the difference between Deployment, ReplicaSet, and Pod?
+
+Answer:
+Pod → Smallest unit, contains containers
+ReplicaSet → Ensures number of pod replicas
+Deployment → Manages ReplicaSets + rolling updates
+Deployment > ReplicaSet > Pod (hierarchy)
+
+3. Explain ClusterIP, NodePort, LoadBalancer services.
+
+Answer:
+ClusterIP (default) : Internal access only
+Used for inter-service communication
+
+NodePort : Exposes service on every node: <NodeIP>:<Port>
+Limited to port 30000–32767
+
+LoadBalancer : Provision external LoadBalancer (cloud)
+Used for production/public access
+
+4. What is an Ingress and Ingress Controller?
+
+Answer:
+Ingress : It's Layer 7 routing which Routes traffic based on host/path and it Reduces need for multiple LoadBalancers
+Ingress Controller : Software that processes the rules
+
+Example: NGINX, Traefik, AWS ALB, HAProxy
+
+5. Explain Readiness vs Liveness Probe.
+
+Answer:
+Liveness Probe : Checks if container is alive
+If failing → K8s restarts the container
+
+Readiness Probe: Checks if container is ready to serve traffic
+If failing → Pod removed from service endpoints
+
+6. What is a CrashLoopBackOff? How do you troubleshoot?
+
+Answer:
+CrashLoopBackOff = container keeps crashing repeatedly.
+
+Troubleshooting steps:
+Check pod logs : kubectl logs <pod> -c <container>
+Describe pod   : kubectl describe pod <name>
+Check events, wrong env vars, wrong ports
+Run pod in debug/safe mode
+Check entrypoint/scripts
+Check resource limits (OOMKilled is common)
+
+7. Explain ConfigMaps vs Secrets.
+
+ConfigMap
+Stores non-sensitive key-value data
+Stored unencrypted in etcd
+
+Secret
+Stores sensitive data (passwords, tokens)
+Base64-encoded
+Can be encrypted at rest
+
+Use cases:
+ConfigMap → app configs
+Secret → DB password, API keys
+
+8. What is a DaemonSet?
+
+A DaemonSet ensures one pod runs on every node.
+
+Use cases:
+Node monitoring (Datadog, Prometheus Node Exporter)
+Log collectors (Fluentd, Filebeat)
+Networking agents (CNI)
+
+9. What is a StatefulSet?
+
+Used for stateful applications requiring:
+Stable network IDs
+Persistent storage
+Ordered scaling
+Ordered rolling updates
+
+Examples:
+MongoDB
+Cassandra
+Kafka
+Zookeeper
+
+10. What is a Persistent Volume (PV) & PersistentVolumeClaim (PVC)?
+
+PV: Actual physical storage in cluster
+PVC: Request for storage resources by a pod
+
+Flow:
+
+Application → PVC → PV → Storage class → Cloud storage
+
+11. What is Horizontal Pod Autoscaler (HPA)?
+
+Automatically scales pods based on:
+CPU usage
+Memory usage
+Custom metrics
+
+Command: kubectl autoscale deployment nginx --min=2 --max=10 --cpu-percent=60
+
+12. Explain Taints and Tolerations.
+
+Used to restrict which pods can schedule on a node.
+
+Taint → Node-level rule
+
+Toleration → Pod-level exception
+
+Example use case:
+Dedicated nodes for logging/ML workloads.
+
+13. What is Node Affinity?
+Used to attract pods to specific nodes.
+
+Example:
+deploy pod only on nodes labeled env=prod.
+
+14. How does the Kubernetes scheduler work?
+
+Scheduler assigns pods to nodes based on:
+
+Node filters (taints, affinity, resources)
+Scoring nodes
+Choosing best node
+Kubelet on that node creates pod
+
+15. How do you upgrade a Kubernetes deployment?
+kubectl set image deployment/myapp app=myimage:v2
+
+Or 
+
+update YAML and apply:  kubectl apply -f deployment.yaml
+
+
+Rollback:
+kubectl rollout undo deployment/myapp
+
+16. What is the difference between kubectl apply vs kubectl create?
+
+create: 
+Creates new object only
+Fails if object exists
+
+apply
+Creates or updates (idempotent)
+Best for GitOps / DevOps pipelines
+
+17. What is etcd?
+
+Key-value store
+Stores entire cluster state
+Very sensitive / critical component
+
+Must be backed up regularly
