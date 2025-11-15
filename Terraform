@@ -122,17 +122,161 @@ Terraform’s DAG (Directed Acyclic Graph) ensures resources are created in the 
 
 10. How do you manage different environments (dev, qa, prod) in Terraform?
 
-Answer:
 Common methods:
-
 Workspaces – Keep the same config but different state
-
 Separate folders per environment – Most popular
-
 Modules + variable files
+
+Example:
+terraform apply -var-file="prod.tfvars"
+Terragrunt – Wrapper for multi-environment automation
+
+What is Terraform and why is it used?
+
+Answer:
+Terraform is an Infrastructure as Code (IaC) tool used to provision and manage cloud infrastructure in a declarative manner.
+It is used because it is:
+
+Multi-cloud compatible (AWS, Azure, GCP, VMware, Kubernetes, etc.)
+
+Supports idempotent deployments
+
+Uses a state file to track actual infrastructure
+
+Enables automation, versioning, repeatability, and consistency
+
+2. What is a Terraform Provider?
+
+Answer:
+A provider is a plugin that tells Terraform how to interact with an external service.
+Examples:
+
+AWS (hashicorp/aws)
+
+Azure (hashicorp/azurerm)
+
+Kubernetes (hashicorp/kubernetes)
+
+Docker (kreuzwerker/docker)
+
+It handles authentication, API calls, and resource creation.
+
+3. What is a Terraform Module?
+
+Answer:
+A module is a reusable collection of Terraform resources.
+Types:
+
+Root module – main working directory
+
+Child module – called using module { }
+
+Registry modules – reusable community modules
+
+Modules help maintain clean, DRY, reusable IaC code.
+
+4. Explain Terraform State. Why is it important?
+
+Answer:
+terraform.tfstate stores a snapshot of real cloud resources.
+It is important because:
+
+Detects what changed
+
+Tracks metadata (IDs, dependencies)
+
+Allows Terraform to plan and apply safely
+
+Needed for collaboration
+
+Never store it in Git.
+
+5. What is Remote State and why do we use it?
+
+Answer:
+Remote state stores tfstate on remote services like:
+
+AWS S3 + DynamoDB (locking)
+
+Azure Blob Storage
+
+Terraform Cloud
+
+Google Cloud Storage
+
+Benefits:
+
+Centralized access
+
+State locking
+
+Secure and team-friendly
+
+6. What is Terraform Plan vs Apply?
+
+Answer:
+
+terraform plan: Shows what Terraform will create, modify, or destroy.
+
+terraform apply: Executes the changes.
+Plan is read-only; apply changes real infrastructure.
+
+7. How do you handle sensitive values in Terraform?
+
+Answer:
+
+Use sensitive = true in variable definitions
+
+Store secrets in AWS Secrets Manager, Azure Key Vault, etc.
+
+Use .tfvars files for sensitive inputs
+
+Do NOT commit .tfvars to Git
+
+Use remote backends with encryption
+
+8. What is Terraform Workspace?
+
+Answer:
+Workspaces allow multiple states for the same configuration.
 Example:
 
-terraform apply -var-file="prod.tfvars"
+terraform workspace new dev
+terraform workspace new prod
 
 
-Terragrunt – Wrapper for multi-environment automation
+Useful for:
+
+dev/test/prod
+
+multi-tenant deployments
+
+9. What is the difference between count and for_each?
+
+Answer:
+count → index-based, good for identical resources
+for_each → key-value based, for complex + named resources
+
+Example:
+
+count = 3
+
+
+vs.
+
+for_each = toset(["dev","stage","prod"])
+
+10. What happens during terraform init?
+
+Answer:
+Terraform initializes the working directory by:
+
+Downloading providers
+
+Setting up backend
+
+Installing required modules
+
+Validating the configuration
+
+It must be run before plan and apply.
