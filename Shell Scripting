@@ -1,0 +1,64 @@
+✅ Shell Scripting Q&A ✅ 
+
+1. What is Shell Script?
+
+Answer:
+A text file containing a series of Linux/UNIX commands executed by a shell interpreter (bash, sh, zsh).
+
+2. How do you make a shell script executable?
+chmod +x script.sh
+
+3. What is #!/bin/bash (Shebang)?
+
+Answer:
+Specifies the interpreter for the script.
+
+Example:
+#!/bin/bash
+
+4. How do you read user input?
+
+read name
+echo "Hello $name"
+
+5. How do you use IF conditions in shell?
+
+if [ $num -gt 10 ]; then
+  echo "Greater"
+fi
+
+6. What are positional parameters?
+
+Parameters passed to a script:
+
+$0 → script name
+$1 → first argument
+$2 → second argument
+
+7. How do you write a loop in Shell?
+
+for i in {1..5}; do
+  echo $i
+done
+
+8. What is the difference between " and ' in shell?
+
+Double quotes (") allow variable expansion
+Single quotes (') do not
+
+9. How do you redirect output?
+
+> → overwrite
+>> → append
+2> → redirect error
+
+Example:
+ls > output.txt
+
+10. How do you check exit status of a command?
+
+echo $?
+Exit code meaning:
+0 = success
+
+non-zero = failure
