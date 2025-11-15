@@ -1,53 +1,37 @@
-🔵 Docker (Expect 8–12 questions)
+**🔵 Docker (8–12 questions)**
 
 Image vs Container
-
 Dockerfile instructions (COPY vs ADD, ENTRYPOINT vs CMD)
-
 Multi-stage builds
-
 Docker networking
-
 Volumes & Bind Mounts
-
 Difference between Docker Compose & Dockerfile
 
 💡 MUST KNOW:
 ✔ How to reduce image size
 ✔ How to debug failing containers
 
-🔵 Kubernetes (Expect 10–15 questions — MOST IMPORTANT)
+**🔵 Kubernetes ( 10–15 questions — MOST IMPORTANT)**
 
 You MUST understand:
-
 Deployments (ReplicaSets, Rollouts, Rollbacks)
-
 Services (ClusterIP, NodePort, LoadBalancer)
-
 Ingress Controller
-
 ConfigMaps vs Secrets
-
 Liveness vs Readiness probe
-
 HPA (Horizontal Pod Autoscaler)
-
 Namespaces
-
 Persistent Volume (PV/PVC)
-
 Taints & Tolerations
-
 Node Affinity
 
 💡 PRIORITY:
 Explain the workflow of:
-
 “When you run kubectl apply -f deployment.yaml, what actually happens?”
 
 This question appears in almost every Cognizant DevOps interview.
 
-🔵 Terraform (Expect 6–10 questions)
+**🔵 Terraform (Expect 6–10 questions)**
 
 What is Terraform state?
 
