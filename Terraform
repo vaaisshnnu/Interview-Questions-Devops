@@ -5,118 +5,86 @@
 Answer:
 Terraform is an open-source Infrastructure-as-Code (IaC) tool created by HashiCorp. It provisions and manages infrastructure using declarative configuration files.
 Differences:
-
 Terraform vs CloudFormation: CloudFormation is AWS-only; Terraform is multi-cloud.
-
 Terraform vs Ansible: Ansible is configuration management; Terraform handles infrastructure provisioning.
-
 Terraform uses state files to track resources; Ansible is mostly stateless.
 
 2. What is a Terraform state file and why is it important?
 
 Answer:
 The state file (terraform.tfstate) stores the mapping between Terraform configuration and real cloud resources.
+
 It is important because:
-
 Terraform uses it to determine what changes to apply.
-
 Helps detect drift.
-
 Required for collaboration.
-
 Remote state enables team access and locking.
 
 3. What is “Terraform Remote State,” and why do we use it?
 
-Answer:
 Remote state stores the tfstate file in backend providers such as S3, Azure Blob, GCS, Terraform Cloud, etc.
+
 Benefits:
-
 Enables team collaboration
-
 Prevents conflicts with state locking (e.g., S3 + DynamoDB)
-
 More secure than local storage
-
 Allows state sharing across projects/modules
 
 4. Explain the difference between a Terraform module and a resource.
 
-Answer:
-
 Resource: The smallest building block (e.g., aws_instance, azurerm_vm).
-
 Module: A collection of resources grouped together, reusable and shareable.
 Terraform always has a root module, and additional child modules can be created or pulled from the registry.
 
 5. What is the workflow of Terraform (init → plan → apply)?
 
-Answer:
-
 terraform init — Downloads providers & initializes backend
-
 terraform plan — Shows what Terraform will create/change/destroy
-
 terraform apply — Executes changes
-
 terraform destroy — Removes resources created by Terraform
 
 This workflow ensures safe, predictable infrastructure deployments.
 
 6. What are Terraform Providers? How do they work?
 
-Answer:
 Providers are plugins that allow Terraform to interact with APIs (AWS, Azure, Kubernetes, GitHub, etc.)
+
 They:
-
 Authenticate with the platform
-
 Provide resource types
-
 Translate Terraform commands into API calls
+
 Examples:
 aws, azurerm, kubernetes, helm, docker
 
 7. What are Variables & Outputs in Terraform?
 
-Answer:
 Variables (variables.tf): Inputs to make configurations dynamic.
 Types: string, number, bool, list, map, object.
-
 Outputs (outputs.tf): Display or expose data after apply.
+
 Used for:
-
 Passing values between modules
-
 Displaying resource attributes (e.g., IP address)
 
 8. What is Tainting in Terraform?
 
-Answer:
 terraform taint <resource> marks a resource as tainted, forcing Terraform to recreate it during the next apply.
+
 Useful for:
-
 Fixing corrupted resources
-
 Forcing replacement without modifying code
-
 Note: In v0.15+, taint is deprecated in favor of -replace.
 
 9. How does Terraform handle dependencies between resources?
 
-Answer:
 Terraform automatically determines dependencies using:
-
 Implicit dependency: References using attributes (recommended)
+
 Example:
-
 instance_id = aws_instance.web.id
-
-
 Explicit dependency: Using depends_on
-
 depends_on = [aws_vpc.main]
-
 
 Terraform’s DAG (Directed Acyclic Graph) ensures resources are created in the correct order.
 
@@ -131,152 +99,102 @@ Example:
 terraform apply -var-file="prod.tfvars"
 Terragrunt – Wrapper for multi-environment automation
 
-What is Terraform and why is it used?
+11. What is Terraform and why is it used?
 
-Answer:
 Terraform is an Infrastructure as Code (IaC) tool used to provision and manage cloud infrastructure in a declarative manner.
 It is used because it is:
-
 Multi-cloud compatible (AWS, Azure, GCP, VMware, Kubernetes, etc.)
-
 Supports idempotent deployments
-
 Uses a state file to track actual infrastructure
-
 Enables automation, versioning, repeatability, and consistency
 
-2. What is a Terraform Provider?
+12. What is a Terraform Provider?
 
-Answer:
 A provider is a plugin that tells Terraform how to interact with an external service.
+
 Examples:
-
 AWS (hashicorp/aws)
-
 Azure (hashicorp/azurerm)
-
 Kubernetes (hashicorp/kubernetes)
-
 Docker (kreuzwerker/docker)
 
 It handles authentication, API calls, and resource creation.
 
-3. What is a Terraform Module?
+13. What is a Terraform Module?
 
-Answer:
 A module is a reusable collection of Terraform resources.
+
 Types:
-
 Root module – main working directory
-
 Child module – called using module { }
-
 Registry modules – reusable community modules
-
 Modules help maintain clean, DRY, reusable IaC code.
 
-4. Explain Terraform State. Why is it important?
+14. Explain Terraform State. Why is it important?
 
-Answer:
 terraform.tfstate stores a snapshot of real cloud resources.
+
 It is important because:
-
 Detects what changed
-
 Tracks metadata (IDs, dependencies)
-
 Allows Terraform to plan and apply safely
-
 Needed for collaboration
-
 Never store it in Git.
 
-5. What is Remote State and why do we use it?
+15. What is Remote State and why do we use it?
 
-Answer:
 Remote state stores tfstate on remote services like:
-
 AWS S3 + DynamoDB (locking)
-
 Azure Blob Storage
-
 Terraform Cloud
-
 Google Cloud Storage
 
 Benefits:
-
 Centralized access
-
 State locking
-
 Secure and team-friendly
 
-6. What is Terraform Plan vs Apply?
-
-Answer:
+16. What is Terraform Plan vs Apply?
 
 terraform plan: Shows what Terraform will create, modify, or destroy.
-
 terraform apply: Executes the changes.
 Plan is read-only; apply changes real infrastructure.
 
-7. How do you handle sensitive values in Terraform?
-
-Answer:
+17. How do you handle sensitive values in Terraform?
 
 Use sensitive = true in variable definitions
-
 Store secrets in AWS Secrets Manager, Azure Key Vault, etc.
-
 Use .tfvars files for sensitive inputs
-
 Do NOT commit .tfvars to Git
-
 Use remote backends with encryption
 
-8. What is Terraform Workspace?
+18. What is Terraform Workspace?
 
-Answer:
 Workspaces allow multiple states for the same configuration.
-Example:
 
+Example:
 terraform workspace new dev
 terraform workspace new prod
 
-
 Useful for:
-
 dev/test/prod
-
 multi-tenant deployments
 
-9. What is the difference between count and for_each?
+19. What is the difference between count and for_each?
 
-Answer:
 count → index-based, good for identical resources
 for_each → key-value based, for complex + named resources
 
 Example:
-
 count = 3
-
-
 vs.
-
 for_each = toset(["dev","stage","prod"])
 
-10. What happens during terraform init?
+20. What happens during terraform init?
 
-Answer:
 Terraform initializes the working directory by:
-
 Downloading providers
-
 Setting up backend
-
 Installing required modules
-
 Validating the configuration
-
 It must be run before plan and apply.
