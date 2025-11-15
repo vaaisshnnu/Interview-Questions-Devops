@@ -1,0 +1,108 @@
+Very Common DevOps Interview Questions 
+
+1. What is DevOps?
+A culture + practices that combine development & operations to deliver applications faster using automation, CI/CD, and collaboration.
+
+2. What is CI/CD?
+
+CI: automated build & test
+CD: automated deployment
+Tools: Jenkins, GitHub Actions, GitLab CI, Azure DevOps.
+
+3. What is IaC? Why is it important?
+
+Infrastructure as Code automates server provisioning using code.
+
+Benefits:
+Consistency
+Easy rollback
+Reproducibility
+Speed
+
+Tools: Terraform, CloudFormation, Ansible.
+
+4. What is Git?
+Distributed version control tool to track code changes.
+
+5. What is Git branching strategy?
+
+GitFlow
+Feature Branch
+Release Branching
+Trunk based development
+
+6. What is the difference between Docker and VM?
+
+Docker is lightweight, shares OS kernel.
+VMs include full OS.
+Docker → faster, low resource.
+
+7. What is Kubernetes?
+
+Container orchestration tool used to automate deployment, scaling, and management of containerized applications.
+
+8. What is a container registry?
+
+A repository for storing Docker images.
+Examples: ECR, ACR, Docker Hub.
+
+9. What is a load balancer?
+
+Distributes traffic across servers to improve reliability.
+
+10. What is monitoring vs logging?
+
+Monitoring: metrics (CPU, memory, latency)
+Logging: application/system logs
+
+Tools:
+Monitoring → Prometheus, CloudWatch
+Logging → ELK stack, Fluentd
+
+11. What is blue-green deployment?
+
+Two environments (blue & green) — switch traffic after deployment to avoid downtime.
+
+12. What is canary deployment?
+
+Release features to a small % of users before full rollout.
+
+13. What is Helm?
+
+Package manager for Kubernetes.
+Used for templating K8s apps.
+
+14. How do you secure DevOps pipelines?
+
+Secrets in Key Vault
+Code scanning
+Image scanning (Trivy)
+RBAC
+TLS/SSL
+
+15. What are artifacts?
+
+Build outputs like .jar, .zip, docker images.
+
+16. What is configuration management?
+
+Managing system state using tools like Ansible, Chef, Puppet.
+
+17. What is a service mesh?
+
+Layer for traffic control in microservices.
+Examples: Istio, Linkerd.
+
+18. What is horizontal vs vertical scaling?
+
+Horizontal: add more servers
+Vertical: increase resources (CPU, RAM)
+
+19. What is API gateway?
+
+Entry point for microservices — handles routing, auth, rate-limiting.
+Examples: Kong, Nginx, API Gateway.
+
+20. What is high availability?
+
+Ensuring systems stay up even if components fail using redundancy, load balancing, and replication
