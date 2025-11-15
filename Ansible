@@ -1,0 +1,94 @@
+✅ Ansible Q&A 
+
+1. What is Ansible and why is it used?
+
+Ansible is an open-source automation tool used for configuration management, application deployment, and orchestration.
+
+Why it's used:
+Agentless (uses SSH/WinRM)
+Easy YAML-based scripts
+Idempotent
+Scalable and simple
+
+2. What is an Ansible Playbook?
+
+Answer:
+A Playbook is a YAML file that defines automation tasks.
+Example structure:
+hosts
+tasks
+handlers
+variables
+roles
+
+Playbooks describe what to automate and how.
+
+3. What are Ansible Modules?
+
+Modules are pre-built automation scripts that execute tasks.
+
+Examples:
+yum, apt — package installation
+copy, template — file operations
+ec2, azure_rm — cloud provisioning
+
+4. What are Ansible Roles?
+
+Roles provide a standard directory structure to organize playbooks:
+
+tasks
+vars
+handlers
+templates
+defaults
+files
+
+Used for reusability and cleaner code.
+
+5. How does Ansible communicate with remote machines?
+
+Linux: SSH
+Windows: WinRM
+
+It requires no agent installation.
+
+6. What is Inventory in Ansible?
+
+Inventory is a file (INI/YAML) listing managed hosts.
+
+Example:
+[web]
+server1
+server2
+
+7. How do you use Ansible Vault?
+
+Answer:
+Used to encrypt sensitive data like passwords or keys.
+
+Commands:
+ansible-vault encrypt file.yml
+ansible-vault decrypt file.yml
+ansible-vault view file.yml
+
+8. What is a Handler in Ansible?
+
+Answer:
+Handlers are triggered only when notified.
+Common use: restarting a service after config change.
+
+9. Difference between command and shell modules?
+
+Answer:
+command → runs commands without shell processing
+shell → runs through shell (supports pipes, redirects)
+
+Use shell only when required.
+
+10. How to test Ansible Playbooks?
+
+Answer:
+ansible-playbook --check (dry run)
+ansible-lint
+
+Molecule testing framework
