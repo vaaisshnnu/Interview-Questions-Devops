@@ -1,0 +1,100 @@
+1. What is the difference between Linux and Unix?
+
+Linux is an open-source Unix-like OS based on the Linux Kernel. Unix is proprietary and developed by AT&T/Bell Labs.
+Linux is more widely used in DevOps due to flexibility and community support.
+
+2. What are runlevels in Linux?
+
+
+Runlevels define system states:
+0: Shutdown
+1: Single-user mode
+2: Multi-user (no network)
+3: Multi-user with network
+5: GUI
+6: Reboot
+
+Systemd replaces runlevels with targets (e.g., multi-user.target).
+
+3. How do you check system resource usage?
+
+top, htop – CPU & memory
+df -h – disk usage
+du -sh – directory size
+free -m – memory
+iostat, vmstat – performance
+
+4. How do you check which process is using a port?
+
+sudo lsof -i :8080
+sudo netstat -tulnp | grep 8080
+
+5. How do you add a user in Linux?
+
+sudo useradd username
+sudo passwd username
+
+6. How do you check logs in Linux?
+
+Common files under /var/log/:
+messages
+secure
+syslog
+dmesg
+journalctl -xe (systemd logs)
+
+7. What is the difference between Hard Link and Soft Link?
+
+Hard Link: Same inode
+File exists even if original deleted
+
+Soft Link (symlink):
+Pointer to file
+Breaks if original deleted
+
+8. How do you schedule tasks in Linux?
+
+Using crontab:
+crontab -e
+* * * * * /script.sh
+
+9. How do you check firewall rules?
+
+sudo ufw status (Ubuntu)
+sudo firewall-cmd --list-all (CentOS)
+sudo iptables -L
+
+10. How do you change file permissions?
+
+chmod 755 file
+chown user:group file
+
+11. What is SELinux?
+
+Security-Enhanced Linux — kernel-level security enforcing access controls.
+
+Modes:
+enforcing
+permissive
+disabled
+
+12. How do you monitor system performance?
+
+Tools:
+top, vmstat, iostat, sar
+nmon
+Prometheus node exporter
+
+13. How do you restart a service?
+
+systemctl restart nginx
+systemctl status nginx
+
+14. How do you kill a process?
+
+ps -ef | grep app
+kill -9 <PID>
+
+15. How do you create a tar archive?
+tar -cvf archive.tar folder/
+tar -xvf archive.tar
